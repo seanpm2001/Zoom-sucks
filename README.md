@@ -1,295 +1,80 @@
 
 ***
 
-# <projectName>
+![ZoomSucks.png failed to load](/ZoomSucks.png)
 
-![{Project icon} This image failed to load. It may be due to the file not being reached, or a general error. Reload the page to fix a possible general error.](Image.svg)
+# Zoom Sucks
 
-# By:
+* Zoom abuses the installer flow on MacOS to bypass permissions dialogs ([source](https://twitter.com/c1truz_/status/1244737672930824193))
 
-![{Developer name} This image failed to load. It may be due to the file not being reached, or a general error. Reload the page to fix a possible general error.](Image2.svg)
+* Zoom sends identifying device info to Facebook, even when users don't have a Facebook account ([source](https://www.vice.com/en_us/article/k7e599/zoom-ios-app-sends-data-to-facebook-even-if-you-dont-have-a-facebook-account)) ([fixed](https://www.vice.com/en_us/article/z3b745/zoom-removes-code-that-sends-data-to-facebook))
 
-### Top
+* A bug in Zoom sent identifying information (including email addresses and profile pictures) of thousands of users to strangers ([source](https://www.vice.com/en_us/article/k7e95m/zoom-leaking-email-addresses-photos))
 
-# `README.md`
+* Zoom claims that meetings are end-to-end encrypted in their white paper and marketing materials, but meetings are only encrypted in transit, and are available in plaintext to Zoom servers and employees. ([source](https://theintercept.com/2020/03/31/zoom-meeting-encryption/))
 
-***
+* `zoomAutenticationTool` can be used to escalate privileges of arbitrary scripts/programs ([source](https://twitter.com/DanAmodio/status/1245032929635586053))
 
-## Read this article in a different language
+* Another method of privilege escalation involving the `AuthorizationExecuteWithPrivileges` API during the installation process ([source](https://9to5mac.com/2020/04/01/new-zoom-bugs-takeover-macs-cam-mic-root/))
 
-[ar عربى](README_AR.md) [zh-t 中國傳統的）](README_ZH-T.md)[**en-us**](README.md) [fr français](README_FR.md) [de Deutsch](README_DE.md) [EO Esperanto](README_EO.md)  [ja 日本語](README_JA.md) [ko-south 韓國語](README_KO_SOUTH.md) [pl polski](README_PL.md) [ru русский](README_RU.md) [es en español](README_ES.md)
+* Zoom browser extension grants unnecessary access to full browser history ([source](https://gist.github.com/lrvick/c56957437dd1b7d11eb22bee0c6b2792#browser-plugin))
 
-Translations in languages other than English are machine translated and are not yet accurate. No errors have been fixed yet as of March 21st 2021. Please report translation errors [here](https://github.com/seanpm2001/<repoName>/issues/). Make sure to backup your correction with sources and guide me, as I don't know languages other than English well (I plan on getting a translator eventually) please cite [wiktionary](https://en.wiktionary.org) and other sources in your report. Failing to do so will result in a rejection of the correction being published.
+* Zoom browser extension has unrestricted TCP access on 0.0.0.0 ([source](https://gist.github.com/lrvick/c56957437dd1b7d11eb22bee0c6b2792#browser-plugin))
 
-***
+* Zoom MacOS client runs an insecure local web server to bypass standard app URI flows. This web server can be abused to initiate video/audio recording without the user's consent ([source](https://www.macrumors.com/2019/07/09/zoom-videoconferencing-app-vulnerability/))
 
-# Index
+* Zoom Windows client can be used to send SMB network share credentials to an attacker ([source](https://arstechnica.com/information-technology/2020/04/unpatched-zoom-bug-lets-attackers-steal-windows-credentials-with-no-warning/))
 
-[00.0 - Top](#Top)
+* Zoom MacOS client specifically disables library validation, allowing attacker libraries to be loaded into its address space ([source](https://9to5mac.com/2020/04/01/new-zoom-bugs-takeover-macs-cam-mic-root/))
 
-> [00.1 - Title](#<projectName>)
+* Zoom lies about using AES-256 encryption. In fact, Zoom uses AES-128 (which is less secure) in ECB mode (which is *dangerously* insecure) ([source](https://citizenlab.ca/2020/04/move-fast-roll-your-own-crypto-a-quick-look-at-the-confidentiality-of-zoom-meetings/)) (fixed)
 
-> [00.2 - Read this article in a different language](#Read-this-article-in-a-different-language)
+* A bug in Zoom routed calls from North America and Europe through Chinese datacenters, against Zoom's promise that meetings are only routed through the jurisdictions of the meeting's participants ([source](https://techcrunch.com/2020/04/03/zoom-calls-routed-china/))
 
-> [00.3 - Index](#Index)
+* Facebook sign-in can be added to any account without email confirmation, allowing complete control over the account to an attacker ([source](https://medium.com/@s3c/how-i-hacked-worldwide-zoom-users-eafdff94077d)) (fixed)
 
-[01.0 - Description](#RepositoryName)
+* The Zoom client uses a number of outdated, vulnerable libraries ([source](https://dev.io/posts/zoomzoo/))
 
-[02.0 - About](#About)
+* Zoom uses a constant passphrase and IV when encrypting Apple Airplay screen shares ([source](https://dev.io/posts/zoomzoo/))
 
-[03.0 - Wiki](#Wiki)
+* Zoom's in-development "true" end-to-end encryption will only be available for corporate clients, so that Zoom can continue surveillance of free users ([source](https://www.bloomberg.com/news/articles/2020-06-02/zoom-transforms-hype-into-huge-jump-in-sales-customers))
 
-[04.0 - Version history](#Version-history)
+* An attacker can perform arbitrary file writes to lead to an RCE by abusing the message schema for sending animated GIFs ([source](https://talosintelligence.com/vulnerability_reports/TALOS-2020-1055)) (fixed)
 
-[05.0 - Software status](#Software-status)
+* An attacker can similarly perform arbitrary file writes/RCE by abusing the message schema for code snippets ([source](https://talosintelligence.com/vulnerability_reports/TALOS-2020-1056)) (fixed)
 
-[06.0 - Sponsor info](#Sponsor-info)
+* A zero-day in the Zoom Windows client allowed RCE when a user starts video in an attacker-controlled call ([source](https://threatpost.com/unpatched-zoom-bug-rce/157317/))
 
-[07.0 - Contributers](#Contributers)
+* Low meeting password entropy, combined with a lack of rate-limiting, makes it incredibly easy to brute force meeting passwords ([source](https://www.bleepingcomputer.com/news/security/zoom-bug-allowed-attackers-to-crack-private-meeting-passwords/))
 
-[08.0 - Issues](#Issues)
+## Zoom Devices
 
-> [08.1 - Current issues](#Current-issues)
+Zoom devices include smart TVs, tablets, and smart cameras. Most of these devices include cameras and microphones and are typically installed within line of sight and earshot of sensitive conversations.
 
-> [08.2 - Past issues](#Past-issues)
+* Zoom devices (such as smart cameras and tablets) downloaded unsigned firmware updates over HTTP, leaving them vulnerable to man in the middle attacks (fixed)
 
-> [08.3 - Past pull requests](#Past-pull-requests)
+* Zoom devices run Linux 2.6.2, with 600+ reported vulnerabilities as of March 2020. For reference, Linux 5.12 was released in April 2021, and Linux 2.6.2 was released in February of 2007, over 14 years and 2 months ago (as of May 6th 2021)
 
-> [08.4 - Active pull requests](#Active-pull-requests)
+* Zoom device bootloader is unlocked, allowing root shell access during boot (devices shouldn't have root access by default for security reasons)
 
-[09.0 - Resources](#Resources)
+* Root password is set to default devices shouldn't have root access by default for security reasons)
 
-[10.0 - Contributing](#Contributing)
+[Source](https://gist.github.com/lrvick/c56957437dd1b7d11eb22bee0c6b2792#evaluation)
 
-[11.0 - About README](#About-README)
+# These Aren't New
 
-[12.0 - README Version history](#README-version-history)
+There's a common misconception that Zoom's recent explosion in popularity has left them unfairly blindsided by unreasonable scrutiny from the security community. This isn't true. Zoom has spent years building a reputation within the security community for being unresponsive to vulnerability reports, stingy on paying out bug bounties, and in general not showing a strong commitment to security. While recent comments from CEO Eric Yuan are reassuring and we hope this marks a shift in Zoom's priorities, they are not victims - these vulnerabilities are a product of their own negligence, and nothing else.
 
-[13.0 - Footer](#You-have-reached-the-end-of-the-README-file)
+If you find any reports of vulnerabilities, past or present, that are not listed above please leave a comment below.
 
-> [13.1 - End of file](#EOF)
+*Thanks to @lrvick, @jnaulty, @matthieuxyz, @MacroChip, and the [#!](https://hashbang.sh) community for help compiling this list.*
 
-***
-
-# <repoName>
-<repo_description>
+Modified on May 6th 2021 by [seanpm2001](https://github.com/seanpm2001)
 
 ***
 
-## About
+## Zooming
 
-See above. <extendedRepoDescription>
-
-***
-
-## Wiki
-
-[Click/tap here to view this projects Wiki](https://github.com/seanpm2001/<repoName>/wiki)
-
-If the project has been forked, the Wiki was likely removed. Luckily, I include an embedded version. You can view it [here](/External/ProjectWiki/).
-
-***
-
-## Sponsor info
-
-![SponsorButton.png](SponsorButton.png)
-
-You can sponsor this project if you like, but please specify what you want to donate to. [See the funds you can donate to here](https://github.com/seanpm2001/Sponsor-info/tree/main/For-sponsors)
-
-You can view other sponsor info [here](https://github.com/seanpm2001/Sponsor-info/)
-
-Try it out! The sponsor button is right up next to the watch/unwatch button.
-
-***
-
-## Version history
-
-**Version history currently unavailable**
-
-**No other versions listed**
-
-***
-
-## Software status
-
-All of my works are free some restrictions. DRM (**D**igital **R**estrictions **M**anagement) is not present in any of my works.
-
-![DRM-free_label.en.svg](DRM-free_label.en.svg)
-
-This sticker is supported by the Free Software Foundation. I never intend to include DRM in my works.
-
-I am ussing the abbreviation "Digital Restrictions Management" instead of the more known "Digital Rights Management" as the common way of addressing it is false, there are no rights with DRM. The spelling "Digital Restrictions Management" is more accurate, and is supported by [Richard M. Stallman (RMS)](https://en.wikipedia.org/wiki/Richard_Stallman) and the [Free Software Foundation (FSF)](https://en.wikipedia.org/wiki/Free_Software_Foundation)
-
-This section is used to raise awareness for the problems with DRM, and also to protest it. DRM is defective by design and is a major threat to all computer users and software freedom.
-
-Image credit: [defectivebydesign.org/drm-free/...](https://www.defectivebydesign.org/drm-free/how-to-use-label)
-
-***
-
-## Contributers
-
-Currently, I am the only contributer. Contributing is allowed, as long as you follow the rules of the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
-> * 1. [seanpm2001](https://github.com/seanpm2001/) - x commits (As of DoW, Month, DoM, Yr at ##:## a/pm)
-
-> * 2. No other contributers.
-
-***
-
-## Issues
-
-### Current issues
-
-* None at the moment
-
-* No other current issues
-
-If the repository has been forked, issues likely have been removed. Luckily I keep an archive of certain images [here](/.github/Issues/)
-
-[Read the privacy policy on issue archival here](/.github/Issues/README.md)
-
-**TL;DR**
-
-I archive my own issues. Your issue won't be archived unless you request it to be archived.
-
-### Past issues
-
-* None at the moment
-
-* No other past issues
-
-If the repository has been forked, issues likely have been removed. Luckily I keep an archive of certain images [here](/.github/Issues/)
-
-[Read the privacy policy on issue archival here](/.github/Issues/README.md)
-
-**TL;DR**
-
-I archive my own issues. Your issue won't be archived unless you request it to be archived.
-
-### Past pull requests
-
-* None at the moment
-
-* No other past pull requests
-
-If the repository has been forked, issues likely have been removed. Luckily I keep an archive of certain images [here](/.github/Issues/)
-
-[Read the privacy policy on issue archival here](/.github/Issues/README.md)
-
-**TL;DR**
-
-I archive my own issues. Your issue won't be archived unless you request it to be archived.
-
-### Active pull requests
-
-* None at the moment
-
-* No other active pull requests
-
-If the repository has been forked, issues likely have been removed. Luckily I keep an archive of certain images [here](/.github/Issues/)
-
-[Read the privacy policy on issue archival here](/.github/Issues/README.md)
-
-**TL;DR**
-
-I archive my own issues. Your issue won't be archived unless you request it to be archived.
-
-***
-
-## Resources
-
-Here are some other resources for this project:
-
-[Project language file](PROJECT_LANG.<fileExtensionForProgrammingLanguage>)
-
-[Join the discussion on GitHub](https://github.com/seanpm2001/<repoName>/discussions)
-
-No other resources at the moment.
-
-***
-
-## Contributing
-
-Contributing is allowed for this project, as long as you follow the rules of the `CONTRIBUTING.md` file.
-
-[Click/tap here to view the contributing rules for this project](CONTRIBUTING.md)
-
-***
-
-## About README
-
-File type: `Markdown (*.md)`
-
-File version: `0.1 (Sunday, March 21st 2021 at 7:50 pm)`
-
-Line count: `0,296`
-
-***
-
-## README version history
-
-Version 0.1 (Sunday, March 21st 2021 at 7:50 pm)
-
-> Changes:
-
-> * Started the file
-
-> * Added the title section
-
-> * Added the index
-
-> * Added the about section
-
-> * Added the Wiki section
-
-> * Added the version history section
-
-> * Added the issues section.
-
-> * Added the past issues section
-
-> * Added the past pull requests section
-
-> * Added the active pull requests section
-
-> * Added the contributors section
-
-> * Added the contributing section
-
-> * Added the about README section
-
-> * Added the README version history section
-
-> * Added the resources section
-
-> * Added a software status section, with a DRM free sticker and message
-
-> * Added the sponsor info section
-
-> * No other changes in version 0.1
-
-Version 1 (Coming soon)
-
-> Changes:
-
-> * Coming soon
-
-> * No other changes in version 1
-
-Version 2 (Coming soon)
-
-> Changes:
-
-> * Coming soon
-
-> * No other changes in version 2
-
-***
-
-### You have reached the end of the README file
-
-[Back to top](#Top) [Exit](https://github.com)
-
-### EOF
+The Zoom spyware/malware is a disgrace to the zooming in and out functionality on computers and cameras. It is highly unprofessional to refer to a video conference as "a Zoom" or "Zooming" please show respect to the concept of zoom (motion)
 
 ***
